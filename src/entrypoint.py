@@ -44,6 +44,9 @@ BRANCH = (
     else INPUT_TARGET_BRANCH
 )
 
+print("REPOSITORY", REPOSITORY)
+print("BRANCH", BRANCH)
+
 
 # Define cppcheck specific vocabulary for switches:
 DISABLED = "disable"
