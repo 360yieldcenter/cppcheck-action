@@ -165,6 +165,9 @@ def command(dsl=None, actions=None, checks_sep=CHECKS_SEP, constant_dimensions=C
     dsl = DSL if dsl is None else dsl
     actions = ACTIONS if actions is None else actions
 
+    print(dsl)
+    print(actions)
+
     vector = [
         SCA_EXECUTOR,
         f"--enable={checks_sep.join(parse_checks(dsl))}",
@@ -196,6 +199,8 @@ def display_sca_executor_help():
 
 def run(vector, where=SOURCE_ROOT, show_version=False, show_help=False):
     """Execute the command in a sub process."""
+    print("Running CPP Check")
+
     if show_version:
         print("retrieving cppcheck version")
         completed = display_sca_executor_version()
@@ -243,8 +248,10 @@ def run(vector, where=SOURCE_ROOT, show_version=False, show_help=False):
 
 def main():
     """Drive the parameter extraction and execution of cppcheck."""
-    if all((GITHUB_EVENT_NAME == "pull_request", GITHUB_ACTOR != GITHUB_REPOSITORY_OWNER)):
-        return 2
+
+    # Allow this to be used by an organization owned repo.
+    # if all((GITHUB_EVENT_NAME == "pull_request", GITHUB_ACTOR != GITHUB_REPOSITORY_OWNER)):
+    #     return 2
 
     return run(command(), SOURCE_ROOT, DISPLAY_SCA_VERSION, DISPLAY_SCA_HELP)
 
